@@ -27,28 +27,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors() // ✅ activează suportul CORS definit mai sus
+                .cors()
                 .and()
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/users/register",
                                 "/api/users/login",
+                                "/api/users",
+                                "/api/users/*",
+                                "/api/users/**",
+                                "/api/users/email/{email:.+}", // esențial pentru email cu @
                                 "/groups",
                                 "/groups/**",
-                                "/groups/**/users",
-                                "/email",
-                                "/email/**",
-                                "/expenses",
-                                "/groups/{groupId}/expenses",
-                                "/*/expenses",
-                                "/groups/{groupId}", // mai exact
-                                "/api/users/email/{email}",
-                                "/groups/{groupId}/**",
-                                "/api/users/email/**",  // ✅ adaugă această linie
-                                "api/users/{id}"
+                                "/groups/*/users",
+                                "/groups/*/expenses",
+                                "/expenses"
                         ).permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/groups/**").permitAll() // 🔥 important!
+                        .requestMatchers(HttpMethod.DELETE, "/groups/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

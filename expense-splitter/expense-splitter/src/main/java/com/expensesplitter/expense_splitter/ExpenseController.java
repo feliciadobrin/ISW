@@ -1,6 +1,7 @@
 package com.expensesplitter.expense_splitter;
 
 import com.expensesplitter.expense_splitter.model.Expense;
+import com.expensesplitter.expense_splitter.model.ExpenseRequest;
 import com.expensesplitter.expense_splitter.model.Group;
 import com.expensesplitter.expense_splitter.repository.ExpenseRepository;
 import com.expensesplitter.expense_splitter.repository.GroupRepository;
@@ -27,10 +28,19 @@ public class ExpenseController {
         return ResponseEntity.ok(expenses);
     }
 
+
     @PostMapping("/expenses")
-    public ResponseEntity<?> addExpense(@RequestBody Expense expense) {
-        expenseRepository.save(expense);
-        return ResponseEntity.ok("Cheltuiala a fost adăugată cu succes.");
+    public ResponseEntity<?> addExpense(@RequestBody ExpenseRequest request) {
+        Optional<Group> groupOpt = groupRepository.findById(request.getGroupId());
+        if (groupOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Grupul nu există");
+        }
+
+        Group group = groupOpt.get();
+        Expense expense = new Expense(request.getDescription(), request.getAmount(), group);
+        Expense savedExpense = expenseRepository.save(expense);
+
+        return ResponseEntity.ok(savedExpense);
     }
 
 }

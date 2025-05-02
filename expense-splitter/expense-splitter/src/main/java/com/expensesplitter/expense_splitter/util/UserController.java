@@ -76,7 +76,7 @@ public class UserController {
         return user.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/email/{email:.+}")
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         try {
             Optional<User> userOpt = userRepository.findByEmail(email);

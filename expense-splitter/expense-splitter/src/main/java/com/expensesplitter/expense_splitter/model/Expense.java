@@ -1,5 +1,6 @@
 package com.expensesplitter.expense_splitter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Expense {
     // 🔧 RELAȚIA corectă cu Group
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonBackReference
     private Group group;
 
     // ✅ Constructor gol (necesar pentru JPA)

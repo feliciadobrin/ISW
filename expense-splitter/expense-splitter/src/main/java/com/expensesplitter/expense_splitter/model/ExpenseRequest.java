@@ -5,10 +5,10 @@ public class ExpenseRequest {
     private String description;
     private Long groupId;
 
-    // GETTERS & SETTERS!
     public double getAmount() {
         return amount;
     }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
@@ -16,6 +16,7 @@ public class ExpenseRequest {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -23,6 +24,7 @@ public class ExpenseRequest {
     public Long getGroupId() {
         return groupId;
     }
+
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }

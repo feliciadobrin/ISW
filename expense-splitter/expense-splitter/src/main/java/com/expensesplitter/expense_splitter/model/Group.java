@@ -1,5 +1,6 @@
 package com.expensesplitter.expense_splitter.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Group {
     private String name;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Expense> expenses = new ArrayList<>();
 
 
@@ -52,11 +54,10 @@ public class Group {
     }
 
     public List<Expense> getExpenses() {
-        return expenses;
-    }
+        return expenses;}
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
-    }
+   }
 
 }

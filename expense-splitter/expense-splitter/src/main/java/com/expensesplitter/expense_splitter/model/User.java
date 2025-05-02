@@ -3,9 +3,23 @@ package com.expensesplitter.expense_splitter.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
+
+    @ManyToMany(mappedBy = "users")
+    private List<Group> groups = new ArrayList<>();
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
